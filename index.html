@@ -9,36 +9,44 @@
 <body>
     <main class="main"> 
     <header>
-        <img class="logo" src="img/logo.png" height="">
+        <img class="logo" src="img/logo.png" height="80px">
         <h1>DRaFTeRo - надійно, швидко, зручно</h1>
-        <p>Введіть сумму та отримайте результат миттєво</p>
+        <p class="text">Введіть сумму та отримайте результат миттєво</p>
     </header>
-       <div>
-        <label class="label">сума</label><br>
-        <input type="number" min="0" class="input" placeholder="Введіть необхідну суму"></input>
-        <select id="fromCurrency">
-    <option value="nth" disabled selected>-</option>
-    <option value="USD">USD</option>
-    <option value="UAH">UAH</option>
-    <option value="EUR">EUR</option>
-        </select>
-            </div>
-        <div>
-        <label>результат</label><br>
-    <span id="result" class="result">-</span>
-<select id="toCurrency">
-    <option value="nth" disabled selected>-</option>
-    <option value="USD">USD</option>
-    <option value="UAH">UAH</option>
-    <option value="EUR">EUR</option>
-        </select>
-        </div> 
+    <div class="back">
+       <div class="input-row">
+    <div class="input-wrapper">
+        <input type="number" min="0" class="input" placeholder="Введіть необхідну суму">
+    </div>
+
+    <select class="double select-right" id="fromCurrency">
+        <option value="nth" disabled selected>-</option>
+        <option value="USD">USD</option>
+        <option value="UAH">UAH</option>
+        <option value="EUR">EUR</option>
+    </select>
+</div>
+
+<div class="result-row">
+    <div class="string result-str">
+        <div class="result-label">результат</div>
+        <div id="result" class="result">-</div>
+    </div>
+
+    <select class="double string" id="toCurrency">
+        <option value="nth" disabled selected>-</option>
+        <option value="USD">USD</option>
+        <option value="UAH">UAH</option>
+        <option value="EUR">EUR</option>
+    </select>
+</div>
         <div class="button">
             <button id="swapBtn">⇄ Змінити</button>
             <button id="cntBtn">Розрахувати</button> 
         </div>
     <footer class="footer"><small> За всі неточності та невідповідності розробник Sunabusan відповідальності не несе</small></footer>
-    </main>
+    </div>
+</main>
 
 </body>
 </html>
