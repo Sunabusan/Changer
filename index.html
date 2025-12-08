@@ -7,15 +7,38 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <header><h1>DRaFTeRo - надійно, швидко, зручно</h1></header>
-    <form>
+    <main class="main"> 
+    <header>
+        <img class="logo" src="img/logo.png" height="">
+        <h1>DRaFTeRo - надійно, швидко, зручно</h1>
+        <p>Введіть сумму та отримайте результат миттєво</p>
+    </header>
+       <div>
+        <label class="label">сума</label><br>
         <input type="number" min="0" class="input" placeholder="Введіть необхідну суму"></input>
-        <select>
+        <select id="fromCurrency">
     <option value="nth" disabled selected>-</option>
     <option value="USD">USD</option>
     <option value="UAH">UAH</option>
     <option value="EUR">EUR</option>
-        <select>
-    <form>
+        </select>
+            </div>
+        <div>
+        <label>результат</label><br>
+    <span id="result" class="result">-</span>
+<select id="toCurrency">
+    <option value="nth" disabled selected>-</option>
+    <option value="USD">USD</option>
+    <option value="UAH">UAH</option>
+    <option value="EUR">EUR</option>
+        </select>
+        </div> 
+        <div class="button">
+            <button id="swapBtn">⇄ Змінити</button>
+            <button id="cntBtn">Розрахувати</button> 
+        </div>
+    <footer class="footer"><small> За всі неточності та невідповідності розробник Sunabusan відповідальності не несе</small></footer>
+    </main>
+
 </body>
 </html>

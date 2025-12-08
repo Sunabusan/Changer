@@ -1,13 +1,25 @@
 
-header {
-    color: rgb(255, 255, 255);
-    font-size: 35PX;
-}
+:root{
+  --bg: #071229;
+  --card: rgba(255,255,255,0.04);
+  --glass: rgba(255,255,255,0.06);
+  --accent: #6ee7b7;
+  --accent-2: #60a5fa;
+  --muted: #9fb3c8;
+  --text: #e8f3ff;
+  --radius: 12px;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;}
+*{box-sizing:border-box}
+html,body{height:100%}
 body{
-  background: #042033;
-  
-}
-.input{
-    width: 160px;
-}
+  background: linear-gradient(180deg,var(--bg), #042033 100%);
+  color:var(--text);
+  -webkit-font-smoothing:antialiased;
+  padding:36px 18px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:100vh;
+} 
+.footer{color:var(--muted);font-size:13px;text-align:center;margin-top:6px}
 
