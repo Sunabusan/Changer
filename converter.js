@@ -64,7 +64,7 @@ function handlePayment(event) {
     return false;
   }
   
-  // очищаем custom validity
+
   card.setCustomValidity('');
   cvc.setCustomValidity('');
   amount.setCustomValidity('');
