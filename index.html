@@ -1,52 +1,110 @@
 <!DOCTYPE html>
-<html lang="ua">
+<html lang="uk">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DRaFTeRo</title>
-    <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Конвертер Валют — Головна</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <main class="main"> 
-    <header>
-        <img class="logo" src="img/logo.png" height="80px">
-        <h1>DRaFTeRo - надійно, швидко, зручно</h1>
-        <p class="text">Введіть сумму та отримайте результат миттєво</p>
-    </header>
-    <div class="back">
-       <div class="input-row">
-    <div class="input-wrapper">
-        <input type="number" min="0" class="input" placeholder="Введіть необхідну суму">
-    </div>
 
-    <select class="double select-right" id="fromCurrency">
-        <option value="nth" disabled selected>-</option>
-        <option value="USD">USD</option>
-        <option value="UAH">UAH</option>
-        <option value="EUR">EUR</option>
-    </select>
-</div>
-
-<div class="result-row">
-    <div class="string result-str">
-        <div class="result-label">результат</div>
-        <div id="result" class="result">-</div>
+  <!-- Неподвижне меню зверху -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">
+        <img src="converter-logo.png" alt="Логотип" class="logo-img">
+      </div>
+      <nav class="nav">
+        <a href="soon.html" class="nav-link" title="?">???</a>
+        <a href="index.html" class="nav-link" aria-current="page" title="Перейти на головну сторінку">Головна</a>
+        <a href="about.html" class="nav-link" title="Дізнатися про нашу компанію">Про нас</a>
+        <a href="contact.html" class="nav-link" title="Зв'яжіться з нами">Контакти</a>
+      </nav>
     </div>
+  </header>
 
-    <select class="double string" id="toCurrency">
-        <option value="nth" disabled selected>-</option>
-        <option value="USD">USD</option>
-        <option value="UAH">UAH</option>
-        <option value="EUR">EUR</option>
-    </select>
-</div>
-        <div class="button">
-            <button id="swapBtn">⇄ Змінити</button>
-            <button id="cntBtn">Розрахувати</button> 
-        </div>
-    <footer class="footer"><small> За всі неточності та невідповідності розробник Sunabusan відповідальності не несе</small></footer>
+  <!-- Hero / привітальний блок -->
+  <section class="hero">
+    <div class="hero-inner">
+      <h1>Ласкаво просимо на наш Конвертер Валют</h1>
+      <p>Швидко та зручно переводи гроші між валютами. Простий інтерфейс і сучасний дизайн — все, щоб ти витрачав менше часу.</p>
     </div>
-</main>
+  </section>
+
+  <!-- Блок кнопок конвертера -->
+  <section class="converter-buttons">
+    <div class="buttons-inner">
+      <div class="converter-container">
+        <form class="converter-form" method="GET" action="https://api.exchangerate-api.com/v4/latest/" target="_blank">
+          <div class="form-group">
+            <label for="from">З валюти:</label>
+            <select name="base" id="from" required>
+              <option value="USD">USD (Доларр)</option>
+              <option value="EUR">EUR (Євро)</option>
+              <option value="UAH">UAH (Гривня)</option>
+              <option value="GBP">GBP (Фунт)</option>
+              <option value="JPY">JPY (Єна)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="to">На валюту:</label>
+            <select name="target" id="to" required>
+              <option value="EUR">EUR (Євро)</option>
+              <option value="USD">USD (Доларр)</option>
+              <option value="UAH">UAH (Гривня)</option>
+              <option value="GBP">GBP (Фунт)</option>
+              <option value="JPY">JPY (Єна)</option>
+            </select>
+          </div>
+
+          <div id="rate-display" style="color: #ffd700; text-align: center; margin: 16px 0; font-weight: bold;"></div>
+
+          <button type="submit" class="convert-btn">Отримати курс</button>
+        </form>
+
+        <!-- Форма оплати -->
+        <form class="payment-form" onsubmit="return handlePayment(event)">
+          <h3>Оплата</h3>
+          
+          <div class="form-group">
+            <label for="card">Номер карти:</label>
+            <input type="text" id="card" placeholder="1234 5678 9012 3456" maxlength="19" pattern="[0-9\s]{19}" title="Введіть номер карти у форматі: 1234 5678 9012 3456" required>
+          </div>
+
+          <div class="form-group">
+            <label for="cvc">CVC/CVV:</label>
+            <input type="text" id="cvc" placeholder="123" maxlength="3" pattern="[0-9]{3}" title="Введіть 3 цифри CVC коду" required>
+          </div>
+
+          <div class="form-group">
+            <label for="amount">Сума (USD):</label>
+            <input type="number" id="amount" placeholder="100" min="1" max="99999" step="0.01" title="Введіть суму від 1 до 99999" required>
+          </div>
+
+          <button type="submit" class="payment-btn">Оплатити</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- нижние приколы -->
+  <footer class="footer">
+    <div class="footer-content">
+      <p>&copy; 2025 Конвертер Валют. Всі права захищені.</p>
+      <div class="footer-links">
+        <a href="#" class="footer-link">Privacy Policy</a>
+        <span class="footer-divider">|</span>
+        <a href="#" class="footer-link">Terms of Service</a>
+        <span class="footer-divider">|</span>
+        <a href="#" class="footer-link">Cookie Policy</a>
+        <span class="footer-divider">|</span>
+        <a href="#" class="footer-link">Contact Us</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="converter.js"></script>
 
 </body>
 </html>
