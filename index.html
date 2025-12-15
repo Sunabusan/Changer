@@ -35,15 +35,15 @@
   <section class="converter-buttons">
     <div class="buttons-inner">
       <div class="converter-container">
-        <form class="converter-form" method="GET" action="https://api.exchangerate-api.com/v4/latest/" target="_blank">
+        <form class="converter-form" id="converter-form">
           <div class="form-group">
             <label for="from">З валюти:</label>
             <select name="base" id="from" required>
-              <option value="USD">USD (Доларр)</option>
+              <option value="USD">USD (Долар)</option>
               <option value="EUR">EUR (Євро)</option>
               <option value="UAH">UAH (Гривня)</option>
               <option value="GBP">GBP (Фунт)</option>
-              <option value="JPY">JPY (Єна)</option>
+              <!-- JPY removed per request -->
             </select>
           </div>
 
@@ -51,39 +51,31 @@
             <label for="to">На валюту:</label>
             <select name="target" id="to" required>
               <option value="EUR">EUR (Євро)</option>
-              <option value="USD">USD (Доларр)</option>
+              <option value="USD">USD (Долар)</option>
               <option value="UAH">UAH (Гривня)</option>
               <option value="GBP">GBP (Фунт)</option>
-              <option value="JPY">JPY (Єна)</option>
+              <!-- JPY removed per request -->
             </select>
           </div>
 
-          <div id="rate-display" style="color: #ffd700; text-align: center; margin: 16px 0; font-weight: bold;"></div>
+          <div class="form-group">
+            <label for="amount">Сума:</label>
+            <input type="number" id="amount" placeholder="100" min="0" step="0.01" required>
+          </div>
 
-          <button type="submit" class="convert-btn">Отримати курс</button>
+          <div id="rate-display" style="color: #ffd700; text-align: center; margin: 16px 0; font-weight: bold;"></div>
+          <div id="converted-display" style="color: #fff; text-align: center; margin: 4px 0; font-weight: 700;"></div>
+
+          <button type="submit" class="convert-btn">Перевести</button>
         </form>
 
         
-        <form class="payment-form" onsubmit="return handlePayment(event)">
-          <h3>Оплата</h3>
-          
-          <div class="form-group">
-            <label for="card">Номер карти:</label>
-            <input type="text" id="card" placeholder="1234 5678 9012 3456" maxlength="19" pattern="[0-9\s]{19}" title="Введіть номер карти у форматі: 1234 5678 9012 3456" required>
+        <!-- Місце для акцій (горизонтальна панель) -->
+        <section class="promos" aria-label="Акції та новини">
+          <div class="promos-inner">
+            <p class="promos-placeholder">Місце для акцій — сюди ми виводитимемо спеціальні пропозиції та оголошення.</p>
           </div>
-
-          <div class="form-group">
-            <label for="cvc">CVC/CVV:</label>
-            <input type="text" id="cvc" placeholder="123" maxlength="3" pattern="[0-9]{3}" title="Введіть 3 цифри CVC коду" required>
-          </div>
-
-          <div class="form-group">
-            <label for="amount">Сума (USD):</label>
-            <input type="number" id="amount" placeholder="100" min="1" max="99999" step="0.01" title="Введіть суму від 1 до 99999" required>
-          </div>
-
-          <button type="submit" class="payment-btn">Оплатити</button>
-        </form>
+        </section>
       </div>
     </div>
   </section>

@@ -235,6 +235,35 @@ body{
   box-shadow: 0 6px 20px rgba(220,38,38,0.3);
 }
 
+/* ===== Результат конвертації ===== */
+.result-display, #converted-display, #rate-display{
+  text-align: center;
+  margin-top: 8px;
+  font-weight: 700;
+}
+
+/* ===== Панель акцій (горизонтальна) ===== */
+.promos{
+  width: 100%;
+  margin-top: 18px;
+}
+.promos-inner{
+  background: rgba(255,255,255,0.06);
+  border-radius: 12px;
+  padding: 14px 18px;
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  align-items: center;
+  min-height: 64px;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+.promos-placeholder{
+  color: rgba(255,255,255,0.85);
+  white-space: nowrap;
+  font-weight: 600;
+}
+
 /* ===== Адаптив ===== */
 @media(max-width:600px){
   .hero-inner h1{ font-size: 2rem; }

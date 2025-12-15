@@ -4,74 +4,71 @@ let toCurrency = document.getElementById('to');
 let form = document.querySelector('.converter-form');
 let rateDisplay = document.getElementById('rate-display');
 
-let rates = {
-  'USD': 1,
-  'EUR': 0.92,
-  'UAH': 41.5,
-  'GBP': 0.79,
-  'JPY': 149.5
-};
 
-function getRate() {
-  let from = fromCurrency.value;
-  let to = toCurrency.value;
-  let rateFromUSD = rates[from];
-  let rateToUSD = rates[to];
-  
-  let rate = rateToUSD / rateFromUSD;
-  
-  console.log('Курс: 1 ' + from + ' = ' + rate.toFixed(2) + ' ' + to);
-  
-  return rate;
+let convertedDisplay = document.getElementById('converted-display');
+let amountInput = document.getElementById('amount');
+
+const API_BASE = 'https://open.er-api.com/v6/latest';
+
+async function fetchRate(from, to) {
+  try {
+    rateDisplay.textContent = 'Завантаження курсу...';
+    const res = await fetch(`${API_BASE}/${encodeURIComponent(from)}`);
+    if (!res.ok) {
+      const txt = await res.text();
+      throw new Error(`Network response was not ok: ${res.status} ${txt}`);
+    }
+    const data = await res.json();
+    if (!data || data.result !== 'success') {
+      const msg = (data && data['error-type']) ? data['error-type'] : 'Невідома помилка API';
+      throw new Error(msg);
+    }
+    const rate = data && data.rates && data.rates[to];
+    if (rate === undefined || rate === null) throw new Error('Курс недоступний');
+    const date = data.time_last_update_utc || data.time_last_update_unix || '';
+    return { rate, date };
+  } catch (err) {
+    rateDisplay.textContent = `Помилка: ${err.message}`;
+    console.error(err);
+    throw err;
+  }
 }
-fromCurrency.addEventListener('change', function() {
-  getRate();
-});
 
-toCurrency.addEventListener('change', function() {
-  getRate();
-});
+async function updateConversion(showResult = true) {
+  const from = fromCurrency.value;
+  const to = toCurrency.value;
+  const amount = parseFloat(amountInput.value) || 0;
 
-
-
-window.addEventListener('load', function() {
-  getRate();
-});
-
-
-
-function handlePayment(event) {
-  event.preventDefault();
-  
-  let card = document.getElementById('card');
-  let cvc = document.getElementById('cvc');
-  let amount = document.getElementById('amount');
-  
-  // своя валидация
-  if (!card.value) {
-    card.setCustomValidity('Будь ласка, введіть номер карти');
-    card.reportValidity();
-    return false;
+  try {
+    const { rate, date } = await fetchRate(from, to);
+    rateDisplay.textContent = `Курс (${date}): 1 ${from} = ${rate.toFixed(6)} ${to}`;
+    if (showResult) {
+      const converted = amount * rate;
+      convertedDisplay.textContent = `${amount} ${from} = ${converted.toFixed(2)} ${to}`;
+    }
+  } catch (err) {
+    convertedDisplay.textContent = '';
   }
-  if (!cvc.value) {
-    cvc.setCustomValidity('Будь ласка, введіть CVC код');
-    cvc.reportValidity();
-    return false;
-  }
-  if (!amount.value) {
-    amount.setCustomValidity('Будь ласка, введіть суму');
-    amount.reportValidity();
-    return false;
-  }
-  
-
-  card.setCustomValidity('');
-  cvc.setCustomValidity('');
-  amount.setCustomValidity('');
-
-  alert('Платіж оброблено!\n\nКарта: ' + card.value + '\nCVC: ' + cvc.value + '\nСума: $' + amount.value);
-  
-  event.target.reset();
-  
-  return false;
 }
+
+fromCurrency.addEventListener('change', () => updateConversion(false));
+toCurrency.addEventListener('change', () => updateConversion(false));
+
+form.addEventListener('submit', function (e) {
+  e.preventDefault();
+  const amountVal = parseFloat(amountInput.value);
+  if (isNaN(amountVal) || amountVal < 0) {
+    amountInput.setCustomValidity('Введіть коректну суму');
+    amountInput.reportValidity();
+    return;
+  }
+  amountInput.setCustomValidity('');
+  updateConversion(true);
+});
+
+window.addEventListener('load', function () {
+  updateConversion(false);
+});
+
+
+
