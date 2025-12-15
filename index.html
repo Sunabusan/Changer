@@ -43,7 +43,6 @@
               <option value="EUR">EUR (Євро)</option>
               <option value="UAH">UAH (Гривня)</option>
               <option value="GBP">GBP (Фунт)</option>
-              <!-- JPY removed per request -->
             </select>
           </div>
 
@@ -54,7 +53,6 @@
               <option value="USD">USD (Долар)</option>
               <option value="UAH">UAH (Гривня)</option>
               <option value="GBP">GBP (Фунт)</option>
-              <!-- JPY removed per request -->
             </select>
           </div>
 
@@ -70,10 +68,9 @@
         </form>
 
         
-        <!-- Місце для акцій (горизонтальна панель) -->
         <section class="promos" aria-label="Акції та новини">
-          <div class="promos-inner">
-            <p class="promos-placeholder">Місце для акцій — сюди ми виводитимемо спеціальні пропозиції та оголошення.</p>
+          <div class="promos-inner" id="promos-inner">
+            <p class="promos-placeholder">Завантаження акцій...</p>
           </div>
         </section>
       </div>
@@ -97,6 +94,8 @@
   </footer>
 
   <script src="converter.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="promos.js"></script>
 
 </body>
 </html>
